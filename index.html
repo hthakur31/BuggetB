@@ -27,9 +27,9 @@
     .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 14px;border-radius:10px;color:#04202b;font-weight:700}
 
     .products{padding:20px 32px 80px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
-    .thumb{height:120px;border-radius:10px;background:linear-gradient(135deg,#032b3c,#052a64);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;margin-bottom:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,280px));gap:20px;justify-content:start}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-width:280px;width:100%}
+    .thumb{height:160px;border-radius:10px;background:linear-gradient(135deg,#032b3c,#052a64);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;margin-bottom:12px}
     .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
     .price{font-weight:800;color:var(--accent)}
     .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:#0ea5a3;color:#012;cursor:pointer;font-weight:700}
@@ -37,7 +37,24 @@
 
     footer{padding:28px 32px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between}
 
-    /* modal */
+    /* gallery section */
+    .gallery{padding:40px 32px 60px;background:rgba(255,255,255,0.01)}
+    .gallery h2{margin:0 0 10px 0;font-size:32px}
+    .gallery-subtitle{color:var(--muted);margin-bottom:32px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,240px));gap:18px;justify-content:start}
+    .gallery-item{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(135deg,#032b3c,#052a64);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+    .gallery-item:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(110,231,183,0.15)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover}
+    .gallery-placeholder{color:var(--accent);font-weight:700;font-size:14px;text-align:center;padding:20px}
+
+    /* lightbox for full-size images */
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.95);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,0.6);cursor:default}
+    .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:700;transition:background 0.2s}
+    .lightbox-close:hover{background:rgba(255,255,255,0.2)}
+
+    /* responsive */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));z-index:60}
     .modal.open{display:flex}
     .sheet{width:min(740px,92%);background:linear-gradient(180deg,#07142a,#061223);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
@@ -85,6 +102,38 @@
     </div>
   </main>
 
+  <!-- Gallery Section -->
+  <section class="gallery" id="gallery">
+    <h2>Our Premium Placement Material</h2>
+    <div class="gallery-subtitle">Real samples from our comprehensive placement preparation packages</div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="assets/Sample1.png" alt="Placement Material Sample 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 1<br>Add your image</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/sample2.jpg" alt="Placement Material Sample 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 2<br>Add your image</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/sample3.jpg" alt="Placement Material Sample 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 3<br>Add your image</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/sample4.jpg" alt="Placement Material Sample 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 4<br>Add your image</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/sample5.jpg" alt="Placement Material Sample 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 5<br>Add your image</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/sample6.jpg" alt="Placement Material Sample 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gallery-placeholder" style="display:none">Sample 6<br>Add your image</div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div>© <strong>BuggetB</strong> — Placement Materials</div>
     <div class="note">Pay via QR, then send screenshot to the contact you set.</div>
@@ -104,24 +153,8 @@
       <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
         <div class="qr">
           <div class="box" id="qrBox">
-            <!-- simple inline QR-like SVG as placeholder -->
-            <svg width="180" height="180" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="100" fill="#fff"/>
-              <g fill="#0b1220">
-                <rect x="6" y="6" width="24" height="24"/>
-                <rect x="70" y="6" width="24" height="24"/>
-                <rect x="6" y="70" width="24" height="24"/>
-                <!-- pattern -->
-                <rect x="36" y="36" width="8" height="8"/>
-                <rect x="46" y="36" width="8" height="8"/>
-                <rect x="56" y="36" width="8" height="8"/>
-                <rect x="36" y="46" width="8" height="8"/>
-                <rect x="56" y="46" width="8" height="8"/>
-                <rect x="36" y="56" width="8" height="8"/>
-                <rect x="46" y="56" width="8" height="8"/>
-                <rect x="56" y="56" width="8" height="8"/>
-              </g>
-            </svg>
+            <!-- PhonePe QR code for payment -->
+            <img src="assets/qr.jpg" alt="Payment QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px" id="qrImage">
           </div>
           <div style="display:flex;flex-direction:column">
             <div class="note">Scan this QR with UPI/Bank app</div>
@@ -150,14 +183,17 @@
     </div>
   </div>
 
+  <!-- Lightbox for full-size gallery images -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="closeLightbox">✕ Close</button>
+    <img id="lightboxImage" src="" alt="Full size preview">
+  </div>
+
   <script>
     (function(){
       const products = [
-        {id:1,name:'Aptitude Mastery Pack',price:199,desc:'30+ practice papers and strategies'},
-        {id:2,name:'DSA Interview Guide',price:349,desc:'60+ curated problems with solutions'},
-        {id:3,name:'System Design Mini Kit',price:299,desc:'Key concepts and mock questions'},
-        {id:4,name:'Mock Interview Set (10)',price:249,desc:'Timed mock test pack'},
-        {id:5,name:'Coding Challenge Vault',price:399,desc:'Company-wise questions and analysis'}
+        {id:1,name:'Ultimate-Placement-Material.png',price:199,desc:'30+ practice papers and strategies',img:'assets/Ultimate-Placement-Material.png'},
+      
       ];
 
       const grid = document.getElementById('productGrid');
@@ -175,8 +211,9 @@
         grid.innerHTML = '';
         for(const p of products){
           const c = document.createElement('div'); c.className='card';
+          const thumbContent = p.img ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : p.name.split(' ')[0];
           c.innerHTML = `
-            <div class="thumb">${p.name.split(' ')[0]}</div>
+            <div class="thumb" style="${p.img ? 'padding:0;overflow:hidden' : ''}">${thumbContent}</div>
             <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
             <div class="note" style="margin-bottom:10px">${p.desc}</div>
             <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
@@ -222,8 +259,9 @@
         grid.innerHTML = '';
         for(const p of filtered){
           const c = document.createElement('div'); c.className='card';
+          const thumbContent = p.img ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : p.name.split(' ')[0];
           c.innerHTML = `
-            <div class="thumb">${p.name.split(' ')[0]}</div>
+            <div class="thumb" style="${p.img ? 'padding:0;overflow:hidden' : ''}">${thumbContent}</div>
             <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
             <div class="note" style="margin-bottom:10px">${p.desc}</div>
             <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
@@ -232,14 +270,19 @@
         }
       });
 
-      // download QR (simple SVG download)
+      // download QR image
       document.getElementById('downloadQr').addEventListener('click', ()=>{
-        const svg = document.querySelector('#qrBox svg');
-        if(!svg) return alert('QR not available');
-        const s = new XMLSerializer().serializeToString(svg);
-        const blob = new Blob([s], {type:'image/svg+xml'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'buggetb-qr.svg'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        const img = document.getElementById('qrImage');
+        if(img && img.src){
+          const a = document.createElement('a');
+          a.href = img.src;
+          a.download = 'buggetb-payment-qr.jpg';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } else {
+          alert('QR not available');
+        }
       });
 
       // keyboard ESC to close
@@ -247,6 +290,41 @@
 
       // initial contact text
       setContact(getContact());
+
+      // Lightbox functionality for gallery images
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const closeLightbox = document.getElementById('closeLightbox');
+
+      // Add click handlers to all gallery images
+      document.addEventListener('click', (e)=>{
+        const galleryImg = e.target.closest('.gallery-item img');
+        if(galleryImg && galleryImg.src && galleryImg.style.display !== 'none'){
+          lightboxImage.src = galleryImg.src;
+          lightbox.classList.add('open');
+        }
+      });
+
+      // Close lightbox on button click
+      closeLightbox.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        lightbox.classList.remove('open');
+      });
+
+      // Close lightbox on background click
+      lightbox.addEventListener('click', ()=>{
+        lightbox.classList.remove('open');
+      });
+
+      // Prevent closing when clicking on the image itself
+      lightboxImage.addEventListener('click', (e)=>{
+        e.stopPropagation();
+      });
+
+      // Close lightbox with ESC key
+      window.addEventListener('keydown', (e)=>{
+        if(e.key==='Escape') lightbox.classList.remove('open');
+      });
     })();
   </script>
 </body>

@@ -1,0 +1,10 @@
+IMPORTANT: Save your PhonePe QR code image here as "qr.jpg"
+
+The website is already configured to display: assets/qr.jpg
+
+Steps:
+1. Save the attached QR image (PhonePe - TechKalaA Tech...) as: qr.jpg
+2. Place it in this folder: g:\BuggetB\assets\qr.jpg
+3. Open index.html in your browser to see it in the payment modal
+
+The QR code will appear when users click "Pay Now" on any product.

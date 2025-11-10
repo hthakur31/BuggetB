@@ -1,0 +1,44 @@
+Product Preview Images
+======================
+
+Save your product preview/screenshot images here:
+
+1. Aptitude Mastery Pack:
+   - Save your Google Drive screenshot showing the placement material folders as: aptitude-preview.jpg
+   - Path: g:\BuggetB\assets\aptitude-preview.jpg
+   - This will display as the product thumbnail for the Aptitude Mastery Pack
+
+You can add more product images by:
+1. Adding an 'img' field to the product in index.html (line ~140)
+2. Saving the image in this assets folder
+3. The image will automatically display as the product thumbnail
+
+Recommended image specs:
+- Format: JPG or PNG
+- Dimensions: 400x300px or similar aspect ratio
+- File size: Keep under 500KB for fast loading
+
+
+Gallery Reference Images
+========================
+
+The "Our Premium Placement Material" section displays 6 sample images.
+Replace these placeholder images with your real material screenshots:
+
+Required files:
+- sample1.jpg - First reference image
+- sample2.jpg - Second reference image
+- sample3.jpg - Third reference image
+- sample4.jpg - Fourth reference image
+- sample5.jpg - Fifth reference image
+- sample6.jpg - Sixth reference image
+
+Path: g:\BuggetB\assets\
+
+Recommended specs:
+- Format: JPG or PNG
+- Aspect ratio: 4:3 (e.g., 800x600px or 1200x900px)
+- File size: Keep under 800KB each for fast loading
+- Content: Screenshots of your actual placement materials, sample questions, or study content
+
+Note: If images are missing, placeholder boxes will show. The gallery has hover effects for better interactivity.
