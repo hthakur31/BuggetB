@@ -11,48 +11,195 @@
       --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7; --glass: rgba(255,255,255,0.04);
     }
     *{box-sizing:border-box}
-    body{font-family:'Inter',system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071025 0%, #071727 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;}
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
-    .logo{display:flex;gap:12px;align-items:center}
-    .brand{font-weight:800;letter-spacing:0.4px;font-size:20px}
-    .nav{display:flex;gap:18px;align-items:center}
-    .nav a{color:var(--muted);text-decoration:none;font-weight:600}
-    .hero{display:flex;gap:40px;align-items:center;padding:48px 32px}
-    .hero-left{flex:1}
-    .kicker{display:inline-block;padding:6px 10px;background:linear-gradient(90deg,#08324a,#093a6a);color:var(--accent);border-radius:999px;font-weight:700;font-size:12px}
-    h1{font-size:40px;margin:18px 0 12px;line-height:1.02}
-    p.lead{color:var(--muted);max-width:56ch}
-    .search{margin-top:18px;display:flex;gap:10px}
-    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
-    .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 14px;border-radius:10px;color:#04202b;font-weight:700}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071025 0%, #071727 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;overflow-x:hidden}
+    
+    /* Floating particles background */
+    body::before,body::after{content:'';position:fixed;width:400px;height:400px;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;z-index:0}
+    body::before{background:var(--accent);top:-200px;left:-200px;animation:float 20s ease-in-out infinite}
+    body::after{background:#3bd6ff;bottom:-200px;right:-200px;animation:float 25s ease-in-out infinite reverse}
+    
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.8);animation:slideDown 0.6s ease-out}
+    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both}
+    .logo svg{animation:rotate 20s linear infinite}
+    .brand{font-weight:800;letter-spacing:0.4px;font-size:20px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav{display:flex;gap:18px;align-items:center;animation:fadeIn 0.8s ease-out 0.4s both}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s}
+    .nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s}
+    .nav a:hover{color:var(--accent)}
+    .nav a:hover::after{width:100%}
+    
+    .hero{display:flex;gap:40px;align-items:center;padding:48px 32px;position:relative;z-index:1}
+    .hero-left{flex:1;animation:fadeInLeft 1s ease-out}
+    .kicker{display:inline-block;padding:8px 14px;background:linear-gradient(90deg,#08324a,#093a6a);color:var(--accent);border-radius:999px;font-weight:700;font-size:13px;animation:bounce 2s ease-in-out infinite;box-shadow:0 4px 12px rgba(110,231,183,0.2)}
+    h1{font-size:40px;margin:18px 0 12px;line-height:1.02;animation:fadeInUp 1s ease-out 0.2s both}
+    h1 .gradient-text{background:linear-gradient(135deg,#fff,var(--accent),#3bd6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
+    p.lead{color:var(--muted);max-width:56ch;animation:fadeInUp 1s ease-out 0.4s both}
+    .search{margin-top:18px;display:flex;gap:10px;animation:fadeInUp 1s ease-out 0.6s both}
+    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:inherit;transition:border-color 0.3s,background 0.3s}
+    .search input:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,0.04)}
+    .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 16px;border-radius:10px;color:#04202b;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;cursor:pointer}
+    .search button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(110,231,183,0.4)}
+    
+    .hero-right{width:360px;display:flex;flex-direction:column;gap:12px;animation:fadeInRight 1s ease-out 0.4s both}
+    .info-card{background:var(--glass);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);transition:transform 0.3s,box-shadow 0.3s}
+    .info-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(110,231,183,0.15)}
+    .highlight-card{background:linear-gradient(135deg,#082033,#052a4a);padding:18px;border-radius:12px;color:var(--accent);font-weight:700;box-shadow:0 8px 28px rgba(2,6,23,0.6);animation:glow 3s ease-in-out infinite}
 
-    .products{padding:20px 32px 80px}
+    .products{padding:20px 32px 80px;position:relative;z-index:1}
+    .section-header{text-align:center;margin-bottom:40px;animation:fadeInUp 1s ease-out both}
+    .section-title{font-size:36px;font-weight:900;margin:0 0 12px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-tagline{color:var(--muted);font-size:16px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,280px));gap:20px;justify-content:start}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-width:280px;width:100%}
-    .thumb{height:160px;border-radius:10px;background:linear-gradient(135deg,#032b3c,#052a64);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;margin-bottom:12px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-width:280px;width:100%;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;animation:fadeInUp 0.8s ease-out both;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(110,231,183,0.1),transparent);transition:left 0.5s}
+    .card:hover::before{left:100%}
+    .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 36px rgba(110,231,183,0.3);border-color:rgba(110,231,183,0.3)}
+    .thumb{height:160px;border-radius:10px;background:linear-gradient(135deg,#032b3c,#052a64);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;margin-bottom:12px;overflow:hidden;position:relative}
+    .thumb::after{content:'✨';position:absolute;top:10px;right:10px;font-size:20px;opacity:0;transition:opacity 0.3s}
+    .card:hover .thumb::after{opacity:1}
     .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .price{font-weight:800;color:var(--accent)}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:#0ea5a3;color:#012;cursor:pointer;font-weight:700}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    .price{font-weight:800;color:var(--accent);font-size:20px;animation:pulse 2s ease-in-out infinite}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,#0ea5a3,#0db3b1);color:#012;cursor:pointer;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;position:relative;overflow:hidden}
+    .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transform:translateX(-100%);transition:transform 0.5s}
+    .btn:hover::before{transform:translateX(100%)}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(14,165,163,0.4)}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);transition:border-color 0.3s,color 0.3s,background 0.3s}
+    .ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(110,231,183,0.05)}
 
-    footer{padding:28px 32px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between}
+    footer{padding:28px 32px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between;position:relative;z-index:1;animation:fadeIn 1.5s ease-out}
+
+    /* Scroll to top button */
+    .scroll-top{position:fixed;bottom:30px;right:110px;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),#3bd6ff);border:none;border-radius:50%;color:#012;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(110,231,183,0.4);opacity:0;visibility:hidden;transition:all 0.3s;z-index:80;display:flex;align-items:center;justify-content:center}
+    .scroll-top.visible{opacity:1;visibility:visible;animation:bounce 2s ease-in-out infinite}
+    .scroll-top:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(110,231,183,0.6)}
+    
+    /* Floating Contact Buttons */
+    .floating-contact{position:fixed;bottom:30px;right:30px;display:flex;flex-direction:column;gap:12px;z-index:90;animation:fadeInRight 0.8s ease-out}
+    .floating-btn{width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.3);transition:all 0.3s;animation:float 3s ease-in-out infinite}
+    .floating-btn:hover{transform:translateY(-6px) scale(1.1);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+    .floating-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e)}
+    .floating-btn.whatsapp:hover{box-shadow:0 12px 30px rgba(37,211,102,0.5)}
+    .floating-btn.email{background:linear-gradient(135deg,#ea4335,#c5221f)}
+    .floating-btn.email:hover{box-shadow:0 12px 30px rgba(234,67,53,0.5)}
+    .floating-btn svg{width:28px;height:28px;color:white}
 
     /* gallery section */
-    .gallery{padding:40px 32px 60px;background:rgba(255,255,255,0.01)}
-    .gallery h2{margin:0 0 10px 0;font-size:32px}
-    .gallery-subtitle{color:var(--muted);margin-bottom:32px}
+    .gallery{padding:40px 32px 60px;background:rgba(255,255,255,0.01);position:relative;z-index:1}
+    .gallery h2{margin:0 0 10px 0;font-size:36px;font-weight:900;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 1s ease-out both}
+    .gallery-subtitle{color:var(--muted);margin-bottom:32px;animation:fadeInUp 1s ease-out 0.2s both}
     .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,240px));gap:18px;justify-content:start}
-    .gallery-item{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(135deg,#032b3c,#052a64);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
-    .gallery-item:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(110,231,183,0.15)}
-    .gallery-item img{width:100%;height:100%;object-fit:cover}
+    .gallery-item{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(135deg,#032b3c,#052a64);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;animation:scaleIn 0.6s ease-out both}
+    .gallery-item:nth-child(1){animation-delay:0.1s}
+    .gallery-item:nth-child(2){animation-delay:0.2s}
+    .gallery-item:nth-child(3){animation-delay:0.3s}
+    .gallery-item:nth-child(4){animation-delay:0.4s}
+    .gallery-item:nth-child(5){animation-delay:0.5s}
+    .gallery-item:nth-child(6){animation-delay:0.6s}
+    .gallery-item::before{content:'🔍';position:absolute;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;font-size:32px;opacity:0;transition:opacity 0.3s;z-index:2}
+    .gallery-item:hover::before{opacity:1}
+    .gallery-item:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 12px 40px rgba(110,231,183,0.25);border-color:var(--accent)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+    .gallery-item:hover img{transform:scale(1.1)}
     .gallery-placeholder{color:var(--accent);font-weight:700;font-size:14px;text-align:center;padding:20px}
 
     /* lightbox for full-size images */
-    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.95);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
-    .lightbox.open{display:flex}
-    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,0.6);cursor:default}
-    .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:700;transition:background 0.2s}
-    .lightbox-close:hover{background:rgba(255,255,255,0.2)}
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.97);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;backdrop-filter:blur(8px)}
+    .lightbox.open{display:flex;animation:fadeIn 0.3s ease-out}
+    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.8);cursor:default;animation:zoomIn 0.4s ease-out}
+    .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:700;transition:all 0.3s;backdrop-filter:blur(10px)}
+    .lightbox-close:hover{background:rgba(255,255,255,0.2);transform:scale(1.05);box-shadow:0 4px 16px rgba(255,255,255,0.2)}
+
+    /* premium promo section */
+    .promo{padding:60px 32px;background:linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#082642 100%);position:relative;overflow:hidden}
+    .promo::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(110,231,183,0.08),transparent 50%),radial-gradient(circle at 80% 50%,rgba(59,214,255,0.06),transparent 50%);animation:pulse 8s ease-in-out infinite}
+    .promo-container{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+    .promo-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:linear-gradient(90deg,rgba(110,231,183,0.15),rgba(59,214,255,0.15));border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:700;font-size:14px;margin-bottom:20px;animation:slideDown 0.6s ease-out}
+    .promo-title{font-size:48px;font-weight:900;line-height:1.1;margin:0 0 16px;background:linear-gradient(135deg,#fff 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 0.8s ease-out 0.2s both}
+    .promo-subtitle{font-size:20px;color:#c5d4e8;margin-bottom:32px;animation:fadeInUp 0.8s ease-out 0.4s both}
+    .promo-content{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:40px}
+    .promo-features{animation:fadeInLeft 1s ease-out 0.6s both}
+    .feature-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+    .feature-icon{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#3bd6ff);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#012;font-weight:800;font-size:14px}
+    .feature-text{color:#e6eef6;line-height:1.5}
+    .promo-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;animation:fadeInRight 1s ease-out 0.6s both}
+    .stat-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;text-align:center;transition:transform 0.3s,box-shadow 0.3s}
+    .stat-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(110,231,183,0.2)}
+    .stat-number{font-size:32px;font-weight:900;color:var(--accent);margin-bottom:4px}
+    .stat-label{font-size:13px;color:var(--muted)}
+    .promo-cta{display:flex;gap:16px;flex-wrap:wrap;animation:fadeInUp 1s ease-out 0.8s both}
+    .cta-primary{padding:16px 32px;background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;border-radius:12px;color:#012;font-weight:800;font-size:18px;cursor:pointer;box-shadow:0 8px 24px rgba(110,231,183,0.3);transition:transform 0.2s,box-shadow 0.3s}
+    .cta-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(110,231,183,0.4)}
+    .cta-secondary{padding:16px 32px;background:rgba(255,255,255,0.05);border:2px solid var(--accent);border-radius:12px;color:var(--accent);font-weight:700;font-size:18px;cursor:pointer;transition:background 0.3s}
+    .cta-secondary:hover{background:rgba(110,231,183,0.1)}
+    .promo-companies{margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);animation:fadeIn 1.2s ease-out 1s both}
+    .companies-label{text-align:center;color:var(--muted);font-size:14px;margin-bottom:16px}
+    .companies-list{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .company-tag{padding:8px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#c5d4e8;font-size:13px;font-weight:600}
+
+    /* Instruction Section */
+    .instructions{padding:80px 32px;background:linear-gradient(180deg,#071025 0%,#0a1628 100%);position:relative;overflow:hidden}
+    .instructions::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(110,231,183,0.1),transparent 60%);pointer-events:none}
+    .instructions-container{max-width:1000px;margin:0 auto;position:relative;z-index:1}
+    .instructions-header{text-align:center;margin-bottom:60px}
+    .instructions-title{font-size:48px;font-weight:900;margin:0 0 16px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 0.8s ease-out both}
+    .instructions-subtitle{font-size:18px;color:var(--muted);animation:fadeInUp 0.8s ease-out 0.2s both}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px}
+    .step-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px 24px;position:relative;overflow:hidden;transition:all 0.4s;animation:scaleIn 0.6s ease-out both}
+    .step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),#3bd6ff);transform:scaleX(0);transform-origin:left;transition:transform 0.6s ease-out}
+    .step-card:hover::before{transform:scaleX(1)}
+    .step-card:hover{transform:translateY(-8px);background:rgba(255,255,255,0.04);border-color:var(--accent);box-shadow:0 12px 40px rgba(110,231,183,0.2)}
+    .step-card:nth-child(1){animation-delay:0.1s}
+    .step-card:nth-child(2){animation-delay:0.2s}
+    .step-card:nth-child(3){animation-delay:0.3s}
+    .step-card:nth-child(4){animation-delay:0.4s}
+    .step-card:nth-child(5){animation-delay:0.5s}
+    .step-card:nth-child(6){animation-delay:0.6s}
+    .step-number{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#3bd6ff);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#012;margin:0 auto 20px;box-shadow:0 8px 24px rgba(110,231,183,0.3);animation:pulse 2s ease-in-out infinite}
+    .step-title{font-size:20px;font-weight:800;color:#fff;margin:0 0 12px;text-align:center}
+    .step-desc{font-size:15px;color:var(--muted);line-height:1.6;text-align:center}
+    .step-icon{font-size:48px;margin-bottom:16px;text-align:center;animation:bounce 2s ease-in-out infinite}
+
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes float{0%,100%{transform:translate(0,0)}25%{transform:translate(20px,-20px)}50%{transform:translate(-20px,20px)}75%{transform:translate(10px,10px)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @keyframes glow{0%,100%{box-shadow:0 8px 28px rgba(2,6,23,0.6)}50%{box-shadow:0 8px 36px rgba(110,231,183,0.3)}}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes scaleIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+    @keyframes zoomIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+
+    /* responsive */
+    @media (max-width:920px){
+      .promo-content{grid-template-columns:1fr}
+      .promo-stats{grid-template-columns:repeat(2,1fr)}
+      .promo-title{font-size:36px}
+      .nav{gap:8px;flex-wrap:wrap}
+      .nav button{font-size:13px;padding:8px 12px}
+      .instructions-title{font-size:36px}
+      .steps-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    }
+    @media (max-width:720px){
+      h1{font-size:28px}.hero{flex-direction:column;align-items:flex-start}
+      .promo-stats{grid-template-columns:1fr}
+      .promo-cta{flex-direction:column}
+      .cta-primary,.cta-secondary{width:100%;text-align:center}
+      .nav{gap:6px}
+      .nav a{font-size:13px}
+      .nav button{font-size:12px;padding:6px 10px}
+      .floating-contact{bottom:20px;right:20px;gap:10px}
+      .floating-btn{width:50px;height:50px}
+      .floating-btn svg{width:24px;height:24px}
+      .scroll-top{bottom:20px;right:90px;width:45px;height:45px}
+      .instructions-title{font-size:32px}
+      .instructions-subtitle{font-size:16px}
+      .steps-grid{grid-template-columns:1fr;gap:24px}
+      .step-card{padding:24px 20px}
+    }
 
     /* responsive */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));z-index:60}
@@ -69,74 +216,215 @@
 </head>
 <body>
   <header>
-    <div class="logo"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#062433"/><path d="M6 12h12" stroke="#6EE7B7" stroke-width="1.5" stroke-linecap="round"/></svg><div class="brand">BuggetB</div></div>
+    <div class="logo"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#062433"/><path d="M6 12h12" stroke="#6EE7B7" stroke-width="1.5" stroke-linecap="round"/></svg><div class="brand">✨ BuggetB</div></div>
     <nav class="nav">
-      <a href="#products">Products</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <button class="btn ghost" id="setContactBtn">Set Contact</button>
+      <a href="#products">🎁 Products</a>
+      <a href="#gallery">📚 Samples</a>
+      <a href="#promo">🚀 Offers</a>
+      <button class="btn ghost" id="navWhatsApp" style="display:flex;align-items:center;gap:6px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </button>
+      <button class="btn ghost" id="navEmail" style="display:flex;align-items:center;gap:6px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </button>
     </nav>
   </header>
 
   <section class="hero">
     <div class="hero-left">
-      <div class="kicker">Placement Material</div>
-      <h1>Premium placement kits & practice sets
-      <br><span style="font-weight:600;color:var(--muted);font-size:18px">Designed like product cards — buy by paying via QR</span></h1>
-      <p class="lead">High-quality notes, solved papers, mock interview sets and coding challenges packaged as individual products. Quick pay via QR — send a screenshot to your contact to confirm.</p>
-      <div class="search"><input id="q" placeholder="Search products, e.g. 'Aptitude'" /><button id="searchBtn">Search</button></div>
+      <div class="kicker">🎯 #1 Placement Material Platform</div>
+      <h1><span class="gradient-text">Land Your Dream Job</span> with Premium Placement Kits 🚀
+      <br><span style="font-weight:600;color:var(--muted);font-size:18px">✨ Complete preparation in one place — Pay via QR, Start instantly</span></h1>
+      <p class="lead">💼 High-quality notes, solved papers, mock interviews & coding challenges. Everything you need to crack placements in top MNCs. Trusted by 500+ placed students! 🎓</p>
+      <div class="search"><input id="q" placeholder="🔍 Search products, e.g. 'Aptitude', 'Interview Guide'..." /><button id="searchBtn">Search Now</button></div>
     </div>
-    <div style="width:360px;display:flex;flex-direction:column;gap:12px">
-      <div style="background:var(--glass);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
-        <div style="font-weight:800">Why BuggetB?</div>
-        <div class="note">Curated placement-ready material, up-to-date problems, and compact mock tests. Perfect for final-week preparation.</div>
+    <div class="hero-right">
+      <div class="info-card">
+        <div style="font-weight:800;margin-bottom:8px">💎 Why Choose BuggetB?</div>
+        <div class="note">✅ Curated by industry experts<br>✅ Updated placement patterns<br>✅ Company-specific materials<br>✅ Instant digital delivery</div>
       </div>
-      <div style="background:linear-gradient(90deg,#082033,#052a4a);padding:18px;border-radius:12px;color:var(--accent);font-weight:700;box-shadow:0 8px 28px rgba(2,6,23,0.6)">Trusted by hundreds of students</div>
+      <div class="highlight-card">🔥 500+ Students Placed | ⭐ 4.9/5 Rating</div>
+    </div>
+  </section>
+
+  <!-- Premium Promo Section -->
+  <section class="promo" id="promo">
+    <div class="promo-container">
+      <div class="promo-badge">
+        🎯 LIMITED TIME OFFER
+      </div>
+      
+      <h2 class="promo-title">Ace Your Dream Job with the Placement Guide Drive!</h2>
+      <p class="promo-subtitle">💼 2000+ PDF Materials | 30+ Top MNCs | One Complete Preparation Kit</p>
+
+      <div class="promo-content">
+        <div class="promo-features">
+          <p style="color:#c5d4e8;margin-bottom:24px;line-height:1.6">Get exclusive access to the ultimate placement preparation bundle — study materials, previous year questions, aptitude notes, interview guides, and coding resources from top companies.</p>
+          
+          <div style="margin-bottom:24px">
+            <div style="font-weight:800;color:#fff;margin-bottom:12px;font-size:18px">📚 What You'll Get:</div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">Company-wise preparation materials</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">Aptitude + Reasoning + Verbal PDFs</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">Technical Interview Q&A</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">HR Interview Questions</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">Coding Practice Sets</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div class="feature-text">Bonus: Resume & HR Email Templates</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promo-stats">
+          <div class="stat-card">
+            <div class="stat-number">2000+</div>
+            <div class="stat-label">PDF Materials</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Top MNCs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Updated Content</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-cta">
+        <button class="cta-primary" id="promoGetAccess">🚀 Get Instant Access Now</button>
+        <button class="cta-secondary" id="promoLearnMore">Learn More</button>
+      </div>
+
+      <div class="promo-companies">
+        <div class="companies-label">Includes materials from top companies:</div>
+        <div class="companies-list">
+          <span class="company-tag">TCS</span>
+          <span class="company-tag">Capgemini</span>
+          <span class="company-tag">Deloitte</span>
+          <span class="company-tag">IBM</span>
+          <span class="company-tag">HCL</span>
+          <span class="company-tag">Infosys</span>
+          <span class="company-tag">Wipro</span>
+          <span class="company-tag">Cognizant</span>
+          <span class="company-tag">& Many More</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <main class="products" id="products">
-    <h2 style="margin:0 0 14px 32px">Products</h2>
+    <div class="section-header">
+      <h2 class="section-title">🎁 Our Premium Products</h2>
+      <p class="section-tagline">💯 Handpicked materials to boost your placement success — Choose your pack & start preparing! 📚</p>
+    </div>
     <div class="grid" id="productGrid">
       <!-- cards inserted by JS -->
     </div>
   </main>
 
+  <!-- Instructions Section -->
+  <section class="instructions" id="instructions">
+    <div class="instructions-container">
+      <div class="instructions-header">
+        <h2 class="instructions-title">📋 How It Works</h2>
+        <p class="instructions-subtitle">Simple 6-step process to get your placement materials instantly</p>
+      </div>
+      
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-icon">🛒</div>
+          <div class="step-number">1</div>
+          <h3 class="step-title">Click "Pay Now"</h3>
+          <p class="step-desc">Choose your desired placement material pack and click the Pay Now button to start</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">📱</div>
+          <div class="step-number">2</div>
+          <h3 class="step-title">Scan QR & Pay</h3>
+          <p class="step-desc">Scan the QR code with any UPI app and complete your payment securely</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">📸</div>
+          <div class="step-number">3</div>
+          <h3 class="step-title">Send Screenshot</h3>
+          <p class="step-desc">Take a screenshot of payment confirmation and send it via WhatsApp or Email</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">💚</div>
+          <div class="step-number">4</div>
+          <h3 class="step-title">Get Drive Link</h3>
+          <p class="step-desc">You'll receive the Google Drive link with all materials on WhatsApp instantly</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">🔐</div>
+          <div class="step-number">5</div>
+          <h3 class="step-title">Request Access</h3>
+          <p class="step-desc">Click on the Drive link and request access to view all the premium materials</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">🎉</div>
+          <div class="step-number">6</div>
+          <h3 class="step-title">Get Full Access</h3>
+          <p class="step-desc">You'll get full access to all materials within 1 hour. Start preparing & ace your placement!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Gallery Section -->
   <section class="gallery" id="gallery">
-    <h2>Our Premium Placement Material</h2>
-    <div class="gallery-subtitle">Real samples from our comprehensive placement preparation packages</div>
+    <h2>✨ Our Premium Placement Material Samples</h2>
+    <div class="gallery-subtitle">📖 Real previews from our comprehensive preparation packages — Click to view full size 🔍</div>
     <div class="gallery-grid">
       <div class="gallery-item">
         <img src="assets/Sample1.png" alt="Placement Material Sample 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none">Sample 1<br>Add your image</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/sample2.jpg" alt="Placement Material Sample 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="assets/Sample2.png" alt="Placement Material Sample 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none">Sample 2<br>Add your image</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/sample3.jpg" alt="Placement Material Sample 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="assets/Sample3.png" alt="Placement Material Sample 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none">Sample 3<br>Add your image</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/sample4.jpg" alt="Placement Material Sample 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="assets/Sample4.png" alt="Placement Material Sample 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none">Sample 4<br>Add your image</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/sample5.jpg" alt="Placement Material Sample 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="assets/Sample5.png" alt="Placement Material Sample 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none">Sample 5<br>Add your image</div>
-      </div>
-      <div class="gallery-item">
-        <img src="assets/sample6.jpg" alt="Placement Material Sample 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none">Sample 6<br>Add your image</div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div>© <strong>BuggetB</strong> — Placement Materials</div>
-    <div class="note">Pay via QR, then send screenshot to the contact you set.</div>
+    <div>© 2025 <strong>BuggetB</strong> — 🎓 Premium Placement Materials | Made with 💚 for Students</div>
+    <div class="note">💳 Secure QR Payment • 📱 Instant Access • 🔒 100% Safe</div>
   </footer>
 
   <!-- Modal -->
@@ -144,10 +432,10 @@
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="head">
         <div>
-          <div id="modalTitle" style="font-weight:800">Pay Now</div>
-          <div class="note" id="productLabel">Completing purchase</div>
+          <div id="modalTitle" style="font-weight:800">💳 Secure Payment</div>
+          <div class="note" id="productLabel">Complete your purchase</div>
         </div>
-        <div><button class="btn ghost" id="closeModal">Close</button></div>
+        <div><button class="btn ghost" id="closeModal">✕ Close</button></div>
       </div>
 
       <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
@@ -156,9 +444,18 @@
             <!-- PhonePe QR code for payment -->
             <img src="assets/QR.jpg" alt="Payment QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px" id="qrImage">
           </div>
-          <div style="display:flex;flex-direction:column">
-            <div class="note">Scan this QR with UPI/Bank app</div>
-            <div style="margin-top:12px"><button class="btn" id="paidConfirm">I Paid — Send Screenshot</button></div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="note">📱 Scan QR with any UPI app</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn" id="sendWhatsApp" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </button>
+              <button class="btn ghost" id="sendEmail" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Email
+              </button>
+            </div>
           </div>
         </div>
 
@@ -166,60 +463,70 @@
           <div style="font-weight:800;margin-bottom:6px">Order</div>
           <div id="orderSummary" class="note">Item — ₹0</div>
           <div style="height:10px"></div>
-          <div style="font-weight:800;margin-bottom:6px">Instructions</div>
-          <div class="note">1) Open your banking/UPI app and scan the QR. 2) Make the payment for the shown amount. 3) Take a screenshot of the payment confirmation and send it to the contact below.</div>
+          <div style="font-weight:800;margin-bottom:6px">📋 Instructions</div>
+          <div class="note">1) Scan QR code with any UPI app<br>2) Complete the payment<br>3) Take screenshot of payment confirmation<br>4) Click WhatsApp or Email button to send screenshot</div>
 
-          <div style="margin-top:12px">
-            <div style="font-weight:700">Contact to send screenshot</div>
-            <div id="contactPhone" class="note" style="margin-top:6px">Not set — click 'Set Contact' to configure</div>
+          <div style="margin-top:16px;padding:12px;background:rgba(110,231,183,0.1);border:1px solid rgba(110,231,183,0.3);border-radius:8px">
+            <div style="font-weight:700;color:var(--accent);margin-bottom:6px">✅ Send Payment Screenshot via:</div>
+            <div class="note">• WhatsApp (Instant) 📱<br>• Email (placementguide6@gmail.com) 📧</div>
           </div>
         </div>
       </div>
 
       <div style="display:flex;justify-content:flex-end;margin-top:16px;gap:8px">
-        <button class="btn ghost" id="downloadQr">Download QR</button>
-        <button class="btn" id="remindBtn">Remind me later</button>
+        <button class="btn ghost" id="downloadQr">⬇️ Download QR</button>
+        <button class="btn" id="remindBtn">⏰ Remind Later</button>
       </div>
     </div>
   </div>
 
   <!-- Lightbox for full-size gallery images -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="closeLightbox">✕ Close</button>
+    <button class="lightbox-close" id="closeLightbox">✕ Close Preview</button>
     <img id="lightboxImage" src="" alt="Full size preview">
   </div>
+
+  <!-- Floating Contact Buttons -->
+  <div class="floating-contact">
+    <button class="floating-btn whatsapp" id="floatingWhatsApp" title="Chat on WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="floating-btn email" id="floatingEmail" title="Send Email">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+  </div>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scrollTop" title="Back to top">↑</button>
 
   <script>
     (function(){
       const products = [
-        {id:1,name:'Ultimate-Placement-Material.png',price:199,desc:'30+ practice papers and strategies',img:'assets/Ultimate-Placement-Material.png'},
-      
+        {id:1,name:'Ultimate Placement Material Pack',price:199,desc:'2000+ PDFs • 30+ Companies • Complete Preparation Kit',img:'assets/Ultimate-Placement-Material.png'}
       ];
+      console.log('Products loaded:', products);
 
       const grid = document.getElementById('productGrid');
       const modal = document.getElementById('modal');
       const productLabel = document.getElementById('productLabel');
       const orderSummary = document.getElementById('orderSummary');
-      const contactPhone = document.getElementById('contactPhone');
-
-      // Use localStorage for contact
-      function getContact(){return localStorage.getItem('buggetb_contact') || ''}
-      function setContact(v){localStorage.setItem('buggetb_contact',v); contactPhone.textContent = v || 'Not set — click \u2018Set Contact\u2019 to configure'}
-      setContact(getContact());
 
       function render(){
+        console.log('Rendering products...', products.length);
         grid.innerHTML = '';
         for(const p of products){
+          console.log('Rendering product:', p.name);
           const c = document.createElement('div'); c.className='card';
           const thumbContent = p.img ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : p.name.split(' ')[0];
           c.innerHTML = `
             <div class="thumb" style="${p.img ? 'padding:0;overflow:hidden' : ''}">${thumbContent}</div>
-            <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
-            <div class="note" style="margin-bottom:10px">${p.desc}</div>
-            <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
+            <div style="font-weight:700;margin-bottom:6px">📦 ${p.name}</div>
+            <div class="note" style="margin-bottom:10px">✨ ${p.desc}</div>
+            <div class="meta"><div class="price">💰 ₹${p.price}</div><div><button class="btn" data-id="${p.id}">🛒 Pay Now</button></div></div>
           `;
           grid.appendChild(c);
         }
+        console.log('Render complete. Cards in grid:', grid.children.length);
       }
       render();
 
@@ -229,27 +536,51 @@
         if(!btn) return;
         const id = btn.getAttribute('data-id'); if(!id) return;
         const p = products.find(x=>x.id==id);
-        productLabel.textContent = p.name + ' — ₹' + p.price;
-        orderSummary.textContent = p.name + ' — ₹' + p.price;
+        productLabel.textContent = '📦 ' + p.name + ' — ₹' + p.price;
+        orderSummary.textContent = '📦 ' + p.name + ' — ₹' + p.price;
         modal.classList.add('open');
       });
 
       document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));
-      document.getElementById('paidConfirm').addEventListener('click', ()=>{
-        const contact = getContact();
-        if(!contact){
-          const set = confirm('No contact set. Set it now?');
-          if(set) return askContact();
-          return alert('Please set a contact to receive screenshots.');
-        }
-        alert('Thanks! Please send the screenshot to: ' + contact + '\nWe will confirm after verification.');
+      
+      // WhatsApp button - redirect to WhatsApp with pre-filled message
+      document.getElementById('sendWhatsApp').addEventListener('click', ()=>{
+        const p = products.find(x=>modal.classList.contains('open'));
+        const productName = document.getElementById('productLabel').textContent;
+        const message = encodeURIComponent(`Hi! I've completed the payment for ${productName}. Please find the payment screenshot attached. Looking forward to accessing the materials! 🎉`);
+        const whatsappURL = `https://wa.me/917440244085?text=${message}`;
+        window.open(whatsappURL, '_blank');
       });
 
-      function askContact(){
-        const v = prompt('Enter the mobile number (with country code if you like):', getContact()||'+91-');
-        if(v!==null){ setContact(v.trim()); }
+      // Email button - open email client with pre-filled details
+      document.getElementById('sendEmail').addEventListener('click', ()=>{
+        const productName = document.getElementById('productLabel').textContent;
+        const subject = `Payment Confirmation - ${productName}`;
+        const body = `Hi BuggetB Team,%0D%0A%0D%0AI have successfully completed the payment for ${productName}.%0D%0A%0D%0APlease find the payment screenshot attached to this email.%0D%0A%0D%0AThank you!%0D%0ALooking forward to accessing the materials.%0D%0A%0D%0ABest regards`;
+        
+        // Try Gmail web interface first
+        const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=placementguide6@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
+        window.open(gmailURL, '_blank');
+      });
+
+      // Floating & Navbar WhatsApp buttons - direct contact
+      function openWhatsAppContact(){
+        const message = encodeURIComponent(`Hi BuggetB! I'm interested in your placement materials. Please share more details. 🎓`);
+        const whatsappURL = `https://wa.me/917440244085?text=${message}`;
+        window.open(whatsappURL, '_blank');
       }
-      document.getElementById('setContactBtn').addEventListener('click', askContact);
+      document.getElementById('floatingWhatsApp').addEventListener('click', openWhatsAppContact);
+      document.getElementById('navWhatsApp').addEventListener('click', openWhatsAppContact);
+
+      // Floating & Navbar Email buttons - direct contact
+      function openEmailContact(){
+        const subject = `Inquiry about Placement Materials`;
+        const body = `Hi BuggetB Team,%0D%0A%0D%0AI am interested in learning more about your placement preparation materials.%0D%0A%0D%0APlease share the details and pricing.%0D%0A%0D%0AThank you!%0D%0A%0D%0ABest regards`;
+        const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=placementguide6@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
+        window.open(gmailURL, '_blank');
+      }
+      document.getElementById('floatingEmail').addEventListener('click', openEmailContact);
+      document.getElementById('navEmail').addEventListener('click', openEmailContact);
 
       // search
       document.getElementById('searchBtn').addEventListener('click', ()=>{
@@ -262,9 +593,9 @@
           const thumbContent = p.img ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : p.name.split(' ')[0];
           c.innerHTML = `
             <div class="thumb" style="${p.img ? 'padding:0;overflow:hidden' : ''}">${thumbContent}</div>
-            <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
-            <div class="note" style="margin-bottom:10px">${p.desc}</div>
-            <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
+            <div style="font-weight:700;margin-bottom:6px">📦 ${p.name}</div>
+            <div class="note" style="margin-bottom:10px">✨ ${p.desc}</div>
+            <div class="meta"><div class="price">💰 ₹${p.price}</div><div><button class="btn" data-id="${p.id}">🛒 Pay Now</button></div></div>
           `;
           grid.appendChild(c);
         }
@@ -324,6 +655,31 @@
       // Close lightbox with ESC key
       window.addEventListener('keydown', (e)=>{
         if(e.key==='Escape') lightbox.classList.remove('open');
+      });
+
+      // Promo CTA button handlers
+      document.getElementById('promoGetAccess').addEventListener('click', ()=>{
+        // Scroll to products section
+        document.getElementById('products').scrollIntoView({behavior:'smooth'});
+      });
+
+      document.getElementById('promoLearnMore').addEventListener('click', ()=>{
+        // Scroll to instructions section
+        document.getElementById('instructions').scrollIntoView({behavior:'smooth'});
+      });
+
+      // Scroll to top button functionality
+      const scrollTopBtn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', ()=>{
+        if(window.pageYOffset > 300){
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', ()=>{
+        window.scrollTo({top:0, behavior:'smooth'});
       });
     })();
   </script>
