@@ -619,21 +619,23 @@
       // keyboard ESC to close
       window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') modal.classList.remove('open') });
 
-      // initial contact text
-      setContact(getContact());
-
       // Lightbox functionality for gallery images
       const lightbox = document.getElementById('lightbox');
       const lightboxImage = document.getElementById('lightboxImage');
       const closeLightbox = document.getElementById('closeLightbox');
 
-      // Add click handlers to all gallery images
-      document.addEventListener('click', (e)=>{
-        const galleryImg = e.target.closest('.gallery-item img');
-        if(galleryImg && galleryImg.src && galleryImg.style.display !== 'none'){
-          lightboxImage.src = galleryImg.src;
-          lightbox.classList.add('open');
-        }
+      // Add click handlers to all gallery items
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      
+      galleryItems.forEach((item, index) => {
+        item.addEventListener('click', (e)=>{
+          const img = item.querySelector('img');
+          if(img && img.src && img.style.display !== 'none'){
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightbox.classList.add('open');
+          }
+        });
       });
 
       // Close lightbox on button click
